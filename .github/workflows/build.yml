@@ -215,10 +215,6 @@ jobs:
       run: find .
       working-directory: artifacts
 
-    - name: Display signed folder structure
-      run: find .
-      working-directory: signed
-
     - name: Create release files
       run: |
        set -eux
@@ -231,7 +227,6 @@ jobs:
        zip -9j release/cli-linux-x64.zip artifacts/cli-linux-x64/*
        zip -9j release/cli-linux-arm64.zip artifacts/cli-linux-arm64/*
        zip -9j release/cli-macos-arm64.zip artifacts/cli-macos-arm64/*
-       mv signed/Source2Viewer/Source2Viewer.exe release/
        mv artifacts/nupkg/ValveResourceFormat.*.nupkg release/ValveResourceFormat.nupkg
        mv artifacts/renderer-nupkg/ValveResourceFormat.Renderer.*.nupkg release/ValveResourceFormat.Renderer.nupkg
 
