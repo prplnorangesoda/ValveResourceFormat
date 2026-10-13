@@ -149,25 +149,6 @@ jobs:
           CLI/bin/Release/osx-arm64/publish
           !**/*.pdb
 
-    - name: Upload test coverage
-      uses: codecov/codecov-action@v7
-      if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        files: ./TestResults/coverage.cobertura.xml
-        disable_search: true
-        fail_ci_if_error: true
-        verbose: true
-
-    - name: Upload test results
-      uses: codecov/codecov-action@v7
-      if: ${{ !cancelled() && matrix.os == 'ubuntu-latest' }}
-      with:
-        token: ${{ secrets.CODECOV_TOKEN }}
-        report_type: test_results
-        files: ./TestResults/Tests-junit.xml
-        disable_search: true
-
   source2viewer-rel:
     name: Source2Viewer (win-x64)
     runs-on: windows-latest
@@ -295,15 +276,3 @@ jobs:
         files: release/*
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: NuGet login
-      uses: NuGet/login@v1
-      id: login
-      with:
-        user: ${{ secrets.NUGET_USER }}
-
-    - name: Publish to NuGet Gallery
-      run: dotnet nuget push release/ValveResourceFormat.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source "https://api.nuget.org/v3/index.json"
-
-    - name: Publish renderer to NuGet Gallery
-      run: dotnet nuget push release/ValveResourceFormat.Renderer.nupkg --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --source "https://api.nuget.org/v3/index.json"
