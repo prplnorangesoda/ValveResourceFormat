@@ -20,6 +20,8 @@ using Windows.Win32;
 using Windows.Win32.UI.WindowsAndMessaging;
 using ResourceViewMode = GUI.Types.Viewers.ResourceViewMode;
 
+#pragma warning disable CS0162
+
 namespace GUI
 {
     partial class MainForm : Form
