@@ -222,8 +222,8 @@ jobs:
        chmod +x artifacts/cli-linux-x64/Source2Viewer-CLI
        chmod +x artifacts/cli-linux-arm64/Source2Viewer-CLI
        chmod +x artifacts/cli-macos-arm64/Source2Viewer-CLI
-       zip -9j release/cli-windows-x64.zip signed/cli-windows-x64/*
-       zip -9j release/cli-windows-arm64.zip signed/cli-windows-arm64/*
+       zip -9j release/cli-windows-x64.zip artifacts/cli-windows-x64/*
+       zip -9j release/cli-windows-arm64.zip artifacts/cli-windows-arm64/*
        zip -9j release/cli-linux-x64.zip artifacts/cli-linux-x64/*
        zip -9j release/cli-linux-arm64.zip artifacts/cli-linux-arm64/*
        zip -9j release/cli-macos-arm64.zip artifacts/cli-macos-arm64/*
