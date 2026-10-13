@@ -215,30 +215,6 @@ jobs:
       run: find .
       working-directory: artifacts
 
-    - name: Upload binaries to be signed
-      id: signpath-artifact
-      uses: actions/upload-artifact@v7
-      with:
-        name: signpath-to-be-signed
-        retention-days: 1
-        # If the folder or executable names change, login to signpath
-        # and modify the "Artifact Configurations" there, as it specifies the paths
-        path: |
-          artifacts/Source2Viewer/
-          artifacts/cli-windows-x64/
-          artifacts/cli-windows-arm64/
-
-    - name: Sign the binaries
-      uses: signpath/github-action-submit-signing-request@v2
-      with:
-        api-token: '${{ secrets.SIGNPATH_API_TOKEN }}'
-        organization-id: '4ff8c8f4-926e-4ee5-8886-7899212bb76e'
-        github-artifact-id: '${{ steps.signpath-artifact.outputs.artifact-id }}'
-        project-slug: 'ValveResourceFormat'
-        signing-policy-slug: 'release-signing'
-        output-artifact-directory: 'signed'
-        wait-for-completion: true
-
     - name: Display signed folder structure
       run: find .
       working-directory: signed
@@ -262,12 +238,6 @@ jobs:
     - name: Display structure of archived files
       run: ls -Rl
       working-directory: release
-
-    - name: Attest build provenance
-      # Signing changed the viewer executable, so the release files are attested again here
-      uses: actions/attest-build-provenance@v4
-      with:
-        subject-path: release/*
 
     - name: Release
       uses: softprops/action-gh-release@v3
